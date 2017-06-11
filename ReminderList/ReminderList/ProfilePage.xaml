@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ReminderList.ProfilePage"
+             Title="{Binding Name}">
+
+    <Grid RowSpacing="0" ColumnSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Image x:Name="Photo" Source="{Binding Photo}" Grid.Row="0" Grid.Column="0"></Image>
+        
+        <StackLayout Grid.Row="0" Grid.Column="1">
+            <Label Text="Имя:" FontSize="Large"></Label>
+            <Entry Text="{Binding Name}"></Entry>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Image Source="camera.png" HeightRequest="50" WidthRequest="50">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="MakeImage"></TapGestureRecognizer>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Image Source="gallery.png" HeightRequest="60" WidthRequest="60">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="PickImage"></TapGestureRecognizer>
+                    </Image.GestureRecognizers>
+                </Image>
+            </StackLayout>
+        </StackLayout>
+
+        <StackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+            <ListView x:Name="GroupsList" ItemsSource="{Binding}" ItemSelected="GroupsList_OnItemSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <Label Text="{Binding GroupName}" FontSize="Large"></Label>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Text="Добавить" Clicked="AddGroup"></Button>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Button Text="Сохранить" Clicked="SaveProfile" />
+                <Button Text="Удалить" Clicked="DeleteProfile" />
+                <Button Text="Отмена"  Clicked="Cancel"/>
+            </StackLayout>
+        </StackLayout>
+        
+    </Grid>
+
+</ContentPage>
